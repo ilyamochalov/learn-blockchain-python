@@ -9,7 +9,7 @@ class BlockChain(object):
         self.current_transactions = []
 
         # Creates genesis block
-        # self.new_block()
+        self.new_block(previous_hash=1, proof=100)
 
     def new_block(self, proof, previous_hash=None):
         """
@@ -21,7 +21,7 @@ class BlockChain(object):
         block = {
             'index': len(self.chain)+1,
             'timestamp': time(),
-            'transaction': self.current_transactions,
+            'transactions': self.current_transactions,
             'proof': proof,
             'previous_hash': previous_hash or self.hash(self.chain[-1])
         }
@@ -29,6 +29,7 @@ class BlockChain(object):
         self.current_transactions = []
 
         self.chain.append(block)
+        return block
 
     def new_transaction(self, sender, recipient, amount):
         """
